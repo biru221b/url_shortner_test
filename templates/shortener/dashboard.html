@@ -1,0 +1,61 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <h1>Your links</h1>
+
+  <section>
+    <h2>Create a short URL</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Create</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>My short URLs</h2>
+    {% if links %}
+      <table>
+        <thead>
+          <tr>
+            <th>Short</th>
+            <th>Long URL</th>
+            <th>Created</th>
+            <th>Clicks</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for link in links %}
+            <tr>
+              <td>
+                <a href="/{{ link.short_key }}/">/{{ link.short_key }}/</a>
+              </td>
+              <td>
+                <a href="{{ link.long_url }}" target="_blank" rel="noopener noreferrer">{{ link.long_url }}</a>
+              </td>
+              <td>{{ link.created_at|date:"Y-m-d H:i" }}</td>
+              <td>{{ link.click_count }}</td>
+              <td>
+                {% if link.is_active and not link.is_expired %}
+                  Active
+                {% else %}
+                  Inactive
+                {% endif %}
+              </td>
+              <td class="actions">
+                <a href="{% url 'shorturl_edit' link.pk %}">Edit</a>
+                <a href="{% url 'shorturl_delete' link.pk %}">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="muted">No links yet. Create one above.</p>
+    {% endif %}
+  </section>
+{% endblock %}
