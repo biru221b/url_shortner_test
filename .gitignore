@@ -1,47 +1,32 @@
-# ✅ Python cache files
+#Python cache files
 __pycache__/
 *.py[cod]
 *.pyo
 
-# ✅ Virtual environment 
+#Virtual environment 
 venv/
 .venv/
 env/
 
-# ✅ Django database
+# Django database
 db.sqlite3
 
-# ✅ Django migration cache
+#Django migration cache
 *.log
 
-# ✅ Environment variables 
+#Environment variables 
 .env
 
-# ✅ VS Code settings
+# VS Code settings
 .vscode/
 
-# ✅ PyCharm settings
+#PyCharm settings
 .idea/
 
-# ✅ OS files
+#OS files
 .DS_Store
 Thumbs.db
 
-# ✅ Static & media 
-media/
-staticfiles/
 
-# ✅ Django collected static
-static_root/
-
-# ✅ Test cache
+#Test cache
 .pytest_cache/
-
-# ✅ Coverage reports
-htmlcov/
-.coverage
-
-# ✅ Build files
-dist/
-build/
-*.egg-info/
