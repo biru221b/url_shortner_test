@@ -2,10 +2,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
 from django.http import Http404
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import DeleteView, ListView, UpdateView
+
+
 
 from .forms import ShortURLForm
 from .models import ShortURL
@@ -73,3 +75,9 @@ def redirect_short(request, short_key: str):
         raise Http404("Short URL inactive or expired")
     ShortURL.objects.filter(pk=short_url.pk).update(click_count=F("click_count") + 1)
     return redirect(short_url.long_url)
+
+
+def home(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+    return render(request, "home.html")
